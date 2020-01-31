@@ -38,7 +38,7 @@ LogData[[3]]=log(LogData[[3]],base=10)
 #Pass data set to the data integration algorithm CoALa
 source("MiMIC.R")
 Algo="MiMIC"
-ManifoldBestMinimize(Data=LogData,K=K,rank=6,mod=modalities)
+mimic=ManifoldBestMinimize(Data=LogData,K=K,rank=6,mod=modalities)
 
 
 #Perform K-means clustering on joint subspace
