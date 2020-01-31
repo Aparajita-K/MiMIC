@@ -3,7 +3,7 @@ Manifold based algorithm for integrative clustering of multi-omics data.
 
 
 Inorder to execute the R code for the **Kidney Carcinoma (KIDNEY) data set **,  within the R environment execute:
->source("LGGdemo.R")
+>source("KIDNEYdemo.R")
 
 
 
