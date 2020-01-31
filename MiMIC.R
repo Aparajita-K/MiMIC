@@ -279,14 +279,14 @@ ManifoldBestMinimize<-function(Data,K,rank=NULL,simFromFile=FALSE,mod=NULL,lambd
 				f=fclust+fdag
 				df=fprev-f
 				Ca=fprev-f-delta_decrease*eta*sum(diag(t(KmOpt$Qt)%*%KmOpt$Qt))
-				params=paste("\tf=",f,"fclust=",fclust,"fdag=",fdag,"Diff-f=",df,"Ca=",Ca)
+				params=paste("\tf=",f,"fclust=",fclust,"fdag=",fdag,"Diff-f=",df,"Armijo criterion Ca=",Ca)
 				if(df>=dfEps && Ca>=0)
 				{
 					t=t+1
 					Ubest=UbestTemp
 					for(i in 1:(M-1))
 						URestList[[i]]=URestListTemp[[i]]
-				  	cat("MiMIC-iteration-",t,params)
+				  	cat("\nMiMIC-iteration-",t,params)
 					SumKernel=matrix(0,n,n)
 					for(i in 1:(M-1))
 						SumKernel=SumKernel+URestList[[i]]%*%t(URestList[[i]])
