@@ -64,7 +64,7 @@ modalities=c("mDNA","RNA","miRNA","RPPA")
 #Log Transformation of sequence based RNA and miRNA modality
 LogData=Data
 #Log Transform Sequence based Gene(RNA) expression and miRNA expression modalities
-#Replace the 0 conuts by 1 before log transformation
+#Replace the 0 counts by 1 before log transformation
 #Skip this step if not required for your data set
 
 LogData[[2]][LogData[[2]]==0]=1
