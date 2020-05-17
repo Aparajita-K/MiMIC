@@ -4,7 +4,7 @@ Multi-Manifold Integrative Clustering
 The MiMIC algorithm permforms integrative clustering on high-dimensional multimodal data sets. A multimodal data set consists of ``M`` modalities X<sub>1</sub>, ..., X<sub>m</sub>, ..., X<sub>M</sub>. Each modality X<sub>m</sub> represents the observations for same set of ``n`` samples from the ``m``-th data source.
 
 Inorder to execute the R code for the lower grade glioma (LGG) data set,  within the ``R`` environment execute:
->source("KIDNEYdemo.R")
+>source("LGGdemo.R")
 
 
 
