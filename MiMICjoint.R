@@ -129,9 +129,11 @@ ManifoldJointMinimize<-function(Data,K,rank=NULL,modname="GENE",simFromFile=0)
   	dfEps=0.005          #Set dfEps=0.001 for benchmark data sets, dfEps=0.005 for Omics data sets
   	alphaval=0.05
   	sigma_decrease=1e-05
-    dampF=2              #Set dampF=1 for benchmark data sets, dampF=2 for Omics data sets
-    startRk=K
-    maxRk=50
+    	dampF=2              #Set dampF=1 for benchmark data sets, dampF=2 for Omics data sets
+    	startRk=K
+    	maxRk=50
+	if(is.null(mod))
+    		mod=seq(1,M)
     	cat("\n Step length=",alphaval)
     	M=length(Data)
     	nstart=100
