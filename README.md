@@ -15,10 +15,10 @@ Here ``n`` is the number of samples in the data set and ``r`` is the optimal/req
 ``k``-means clustering can be performed on the rows of UbestStar matrix to get the clusters in the data set.   
 The cluster assignments are written to the file ``LGG-ClusterAssignment.txt`` for the LGG data set.  
 
-The file ``MiMICjoint.R`` contains the ``R`` implementation of the MiMIC algorithm as a function `ManifoldBestMinimize`. 
+The file ``MiMICjoint.R`` contains the ``R`` implementation of the MiMIC algorithm as a function `ManifoldJointMinimize`. 
 Details of the fuctions is as follows:
 
-Function Name: `ManifoldBestMinimize`
+Function Name: `ManifoldJointMinimize`
 
 ###### #Usage 
 `ManifoldJointMinimize<-function(Data,K,rank=NULL,modname="RNA",simFromFile=0)
