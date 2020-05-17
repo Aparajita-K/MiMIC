@@ -52,20 +52,41 @@ if `mod=NULL`, the algorithm names the modalities as  `1,2,...M`.
 
 ```r
 Data<-list()
-Data[[1]] <- as.matrix(read.table(paste0("DataSets/KIDNEY/mDNA",n),sep=" ",header=TRUE,row.names=1))
-Data[[2]] <- as.matrix(read.table(paste0("DataSets/KIDNEY/RNA",n),sep=" ",header=TRUE,row.names=1))
-Data[[3]] <- as.matrix(read.table(paste0("DataSets/KIDNEY/miRNA",n),sep=" ",header=TRUE,row.names=1))
-Data[[4]] <- as.matrix(read.table(paste0("DataSets/KIDNEY/RPPA",n),sep=" ",header=TRUE,row.names=1))
+Data[[1]] <- as.matrix(read.table(paste0("DataSets/LGG/mDNA",n),sep=" ",header=TRUE,row.names=1))
+Data[[2]] <- as.matrix(read.table(paste0("DataSets/LGG/RNA",n),sep=" ",header=TRUE,row.names=1))
+Data[[3]] <- as.matrix(read.table(paste0("DataSets/LGG/miRNA",n),sep=" ",header=TRUE,row.names=1))
+Data[[4]] <- as.matrix(read.table(paste0("DataSets/LGG/RPPA",n),sep=" ",header=TRUE,row.names=1))
 K=3
 
-#Log Transform of Sequence based Gene and miRNA modality
+M=length(Data)  #The number of modalities
+modalities=c("mDNA","RNA","miRNA","RPPA")
+
+#Log Transformation of sequence based RNA and miRNA modality
 LogData=Data
+#Log Transform Sequence based Gene(RNA) expression and miRNA expression modalities
+#Replace the 0 conuts by 1 before log transformation
+#Skip this step if not required for your data set
+
 LogData[[2]][LogData[[2]]==0]=1
 LogData[[2]]=log(LogData[[2]],base=10)
 LogData[[3]][LogData[[3]]==0]=1
 LogData[[3]]=log(LogData[[3]],base=10)
 
+#Pass data set to the data integration algorithm CoALa
+source("MiMICjoint.R")
+Algo="MiMIC"
+mimic=ManifoldJointMinimize(Data=LogData,K=K,rank=6,mod=modalities)
 
-source("MiMIC.R")
-ManifoldJointMinimize(Data=LogData,K=K,rank=NULL,mod=modalities)
+
+#Perform K-means clustering on joint subspace
+UbestSub=as.matrix(read.table("UjointStar.txt",sep=" ",header=FALSE))
+cat("\n First few rows of Ujoint* subspace:\n")
+print(UbestSub[1:5,1:K])
+cat("\n Subspace Dimension: ",dim(UbestSub)[1]," rows",dim(UbestSub)[2]," columns")
+cat("\nClustering on First k columns")
+UbestSubK=UbestSub[,1:K]
+km=kmeans(UbestSubK,K)$cluster
+df=data.frame(cbind(samples,km))
+write.table(df,quote=FALSE,col.names=FALSE,row.names=FALSE,file=paste0(DataSet,"-ClusterAssignment.txt"))
+cat("\n\nFinal cluster assignments written to file:",paste0(DataSet,"-ClusterAssignment.txt\n\n"))
 ```
