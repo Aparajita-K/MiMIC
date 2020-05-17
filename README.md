@@ -21,7 +21,7 @@ Details of the fuctions is as follows:
 Function Name: `ManifoldJointMinimize`
 
 ###### #Usage 
-`ManifoldJointMinimize<-function(Data,K,rank=NULL,modname="RNA",simFromFile=0)
+`ManifoldJointMinimize(Data,K,rank=NULL,modname="RNA",simFromFile=FALSE)
 `
 
 
@@ -79,13 +79,13 @@ mimic=ManifoldJointMinimize(Data=LogData,K=K,rank=NULL,mod=modalities)
 
 
 #Perform K-means clustering on joint subspace
-UbestSub=as.matrix(read.table("UjointStar.txt",sep=" ",header=FALSE))
+UjointSub=as.matrix(read.table("UjointStar.txt",sep=" ",header=FALSE))
 cat("\n First few rows of Ujoint* subspace:\n")
-print(UbestSub[1:5,1:K])
-cat("\n Subspace Dimension: ",dim(UbestSub)[1]," rows",dim(UbestSub)[2]," columns")
+print(UjointSub[1:5,1:K])
+cat("\n Subspace Dimension: ",dim(UjointSub)[1]," rows",dim(UjointSub)[2]," columns")
 cat("\nClustering on First k columns")
-UbestSubK=UbestSub[,1:K]
-km=kmeans(UbestSubK,K)$cluster
+UjointSubK=UjointSub[,1:K]
+km=kmeans(UjointSubK,K)$cluster
 df=data.frame(cbind(samples,km))
 write.table(df,quote=FALSE,col.names=FALSE,row.names=FALSE,file=paste0(DataSet,"-ClusterAssignment.txt"))
 cat("\n\nFinal cluster assignments written to file:",paste0(DataSet,"-ClusterAssignment.txt\n\n"))
